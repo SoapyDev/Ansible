@@ -1,0 +1,23 @@
+  - name: Install zsh
+    dnf: name=zsh
+    tags:
+    - zsh
+  - name: Change shell
+    shell: chsh -s `which zsh`
+    tags:
+    - zsh
+    - name: Install OhMyZsh
+    shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+    tags:
+    - zsh
+  - name: Install Auto Suggestion
+    ansible.builtin.git:
+      repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+      dest: '~/.oh-my-zsh/plugins/zsh-autosuggestions/'
+    tags:
+      - zsh
+  - name: Install Zshrc
+    copy:
+      src: ../zshrc-config
+      dest: ~/.zshrc
+      replace: yes

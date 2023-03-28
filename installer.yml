@@ -1,0 +1,13 @@
+- hosts: localhost
+  become: true
+  pre_tasks:
+    - name: Update Repos
+      dnf:
+        update_cache: true
+  gather_facts: yes
+  vars:
+    nix_packages:
+      - nodejs
+  tasks:
+    - include_tasks: ./tasks/zsh.yml
+    - include_tasks: ./tasks/nix.yml

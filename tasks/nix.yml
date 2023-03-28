@@ -1,0 +1,33 @@
+    - name: Install Nix on Mac
+      block:
+        - name: Install Homebrew for mac
+          command: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          when: ansible_facts['os_family'] == 'Darwin'
+          tags:
+            - nix
+        - name: Install nix programs
+          become: true
+          script: ./scripts/nixi.sh
+          tags:
+            - nix
+    - name: Install Chocolatey
+      block:
+        - name: Install Chocolatey
+          win_chocolatey:
+            name: chocolatey
+            state: present
+          when: ansible_facts['os_family'] == 'Windows'
+          tags:
+            - nix
+    - name: Install Nix on Fedora
+      block: 
+        - name: install Homebrew
+          command: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+          when: ansible_facts['distribution'] == 'Fedora'
+          tags:
+            - nix
+        - name: Install nix programs
+          become: true
+          script: ./scripts/nixi.sh
+          tags:
+            - nix
