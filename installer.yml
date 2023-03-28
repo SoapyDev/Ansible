@@ -5,6 +5,10 @@
       dnf:
         update_cache: true
   gather_facts: yes
+  vars_prompt:
+    - name: "vault_password"
+      prompt: "Enter vault password"
+      private: yes
   tasks:
     - include_tasks: ./tasks/ssh.yml
     - include_tasks: ./tasks/zsh.yml
