@@ -18,6 +18,15 @@
       - zsh
   - name: Install Zshrc
     copy:
-      src: ../zshrc-config
+      src: ./zsh/zshrc-config
       dest: ~/.zshrc
       replace: yes
+    tags:
+      - zsh
+  - name: Install Zshenv
+    copy:
+      src: ./zsh/zshenv
+      dest: ~/.zshenv
+      replace: yes
+    tags:
+      - zsh

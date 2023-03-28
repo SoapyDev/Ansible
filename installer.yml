@@ -5,9 +5,7 @@
       dnf:
         update_cache: true
   gather_facts: yes
-  vars:
-    nix_packages:
-      - nodejs
   tasks:
+    - include_tasks: ./tasks/ssh.yml
     - include_tasks: ./tasks/zsh.yml
     - include_tasks: ./tasks/nix.yml

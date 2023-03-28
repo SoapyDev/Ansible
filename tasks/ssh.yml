@@ -1,0 +1,21 @@
+- name: Copy ssh key to local machine
+  hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "vault_password"
+      prompt: "Enter vault password"
+      private: yes
+  tasks:
+    - name: Decrypt ssh.yml file
+      ansible.builtin.command: ansible-vault decrypt ssh.yml --output=ssh_private_key
+      vars:
+        ansible_become_pass: "{{ vault_password }}"
+      no_log: true
+
+    - name: Copy ssh key to local machine
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/ssh_private_key"
+        dest: "~/.ssh/id_rsa"
+        mode: '0600'
+      delegate_to: localhost
+
